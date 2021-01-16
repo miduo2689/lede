@@ -1,21 +1,21 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ath10k-ct
-PKG_RELEASE=1
+PKG_RELEASE=2
 
 PKG_LICENSE:=GPLv2
 PKG_LICENSE_FILES:=
 
 PKG_SOURCE_URL:=https://github.com/greearb/ath10k-ct.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_DATE:=2020-03-25
-PKG_SOURCE_VERSION:=3d173a471d3e583f2885ce68190c4387424cecc5
-PKG_MIRROR_HASH:=496279322f3cd26b262d4999cb5a8c1ea022e92a7bb0d43d008bce235abb9a65
+PKG_SOURCE_DATE:=2020-10-08
+PKG_SOURCE_VERSION:=1d28d176e5b6e63a6583f497adf68e1d9c1dc962
+PKG_MIRROR_HASH:=f611762647822742f7c8f9da242e33d9bf6da0a14976b87408af28f280802ae0
 
-# Build the 5.4 ath10k-ct driver version.  Other option is "-4.19".
+# Build the 5.8 ath10k-ct driver version.
 # Probably this should match as closely as
 # possible to whatever mac80211 backports version is being used.
-CT_KVER="-5.4"
+CT_KVER="-5.8"
 
 PKG_MAINTAINER:=Ben Greear <greearb@candelatech.com>
 PKG_BUILD_PARALLEL:=1
@@ -112,7 +112,7 @@ endif
 define Build/Compile
 	+$(MAKE) $(CT_MAKEDEFS) $(PKG_JOBS) -C "$(LINUX_DIR)" \
 		$(KERNEL_MAKE_FLAGS) \
-		SUBDIRS="$(PKG_BUILD_DIR)/ath10k$(CT_KVER)" \
+		M="$(PKG_BUILD_DIR)/ath10k$(CT_KVER)" \
 		NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
 		modules
 endef
